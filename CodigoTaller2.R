@@ -33,6 +33,12 @@ write_xlsx(estadisticas, "estadisticas_descriptivas_decathlon.xlsx")
 
 ## PUNTO 3: Diagrama de disperción calculo de corelación para 100m y 400m
 
+cor(decathlon$100m, decathlon$400m)
+
+plot(decathlon$100m, decathlon$400m,
+     xlab = "100m (s)",
+     ylab = "400m (s)",
+     main = "Relación entre 100m y 400m")
 
 
 ## PUNTO 4: Calculo de los coeficientes de correlación
@@ -67,11 +73,17 @@ cat("\nAtípicos en Javeline:\n")
 by(decathlon$Javeline, decathlon$Competition, function(x) boxplot.stats(x)$out)
 
 
-
 ## PUNTO 6:
+   
+cor(decathlon$Long.jump, decathlon$High.jump)
+
+plot(decathlon$Long.jump, decathlon$High.jump,
+     xlab = "Long.jump (m)",
+     ylab = "High.jump (m)",
+     main = "Relación entre Long.jump y High.jump")
 
 
-
+   
 ## PUNTO 7:
 
 
