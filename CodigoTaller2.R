@@ -86,5 +86,98 @@ plot(decathlon$Long.jump, decathlon$High.jump,
    
 ## PUNTO 7:
 
+   pv <- decathlon$Pole.vault
+media <- mean(pv)
+CV <- sd(pv) / media * 100
+
+m2 <- mean((pv - media)^2)
+m3 <- mean((pv - media)^3)
+m4 <- mean((pv - media)^4)
+asimetria <- m3 / m2^(3/2)
+curtosis  <- m4 / m2^2
+
+media; sd(pv); CV; asimetria; curtosis
+
+hist(pv, breaks = seq(4.15, 5.45, by = 0.1), freq = FALSE,
+     col = "lightsteelblue", border = "white",
+     main = "Histograma - Pole.vault", xlab = "Altura (m)", ylab = "Densidad")
+lines(density(pv), lwd = 2, col = "darkblue")
+abline(v = media, col = "red", lwd = 2, lty = 2)
+
+
+
+
+#Punto 8
+datos <- decathlon
+par(mfrow = c(2, 3), mar = c(4.5, 4.5, 3, 1))
+
+# Punto 3: 100m vs 400m
+plot(datos$100m, datos$400m, pch = 19, col = "steelblue",
+     main = paste0("100m vs 400m (r = ",
+                   round(cor(datos$100m, datos$400m), 3), ")"),
+     xlab = "100m (s)", ylab = "400m (s)")
+abline(lm(400m ~ 100m, data = datos), col = "red", lwd = 2)
+
+# Punto 5: Discus por competencia
+boxplot(Discus ~ Competition, data = datos, col = c("orange", "lightgreen"),
+        main = "Discus por competencia", xlab = "Competencia", ylab = "Distancia (m)")
+
+# Punto 5: Javeline por competencia
+boxplot(Javeline ~ Competition, data = datos, col = c("orange", "lightgreen"),
+        main = "Javeline por competencia", xlab = "Competencia", ylab = "Distancia (m)")
+
+# Punto 6: Long.jump vs High.jump
+plot(datos$Long.jump, datos$High.jump, pch = 19, col = "darkorange",
+     main = paste0("Long.jump vs High.jump (r = ",
+                   round(cor(datos$Long.jump, datos$High.jump), 3), ")"),
+     xlab = "Long.jump (m)", ylab = "High.jump (m)")
+abline(lm(High.jump ~ Long.jump, data = datos), col = "red", lwd = 2)
+
+# Punto 7: Histograma de Pole.vault
+hist(pv, breaks = seq(4.15, 5.45, by = 0.1), freq = FALSE,
+     col = "lightsteelblue", border = "white",
+     main = "Histograma - Pole.vault", xlab = "Altura (m)", ylab = "Densidad")
+lines(density(pv), lwd = 2, col = "darkblue")
+abline(v = media, col = "red", lwd = 2, lty = 2)
+
+par(mfrow = c(1, 1))
+
 
 ## PUNTO 8:
+
+   par(mfrow = c(2, 3))
+
+# Punto 3
+plot(decathlon$100m, decathlon$400m,
+     xlab = "100m (s)",
+     ylab = "400m (s)",
+     main = "Relación entre 100m y 400m")
+
+# Punto 5
+boxplot(Discus ~ Competition, data = decathlon,
+        main = "Lanzamiento de Disco",
+        xlab = "Competencia",
+        ylab = "Distancia (metros)",
+        col = c("skyblue", "orange"))
+
+boxplot(Javeline ~ Competition, data = decathlon,
+        main = "Lanzamiento de Jabalina",
+        xlab = "Competencia",
+        ylab = "Distancia (metros)",
+        col = c("lightgreen", "coral"))
+
+# Punto 6
+plot(decathlon$Long.jump, decathlon$High.jump,
+     xlab = "Long.jump (m)",
+     ylab = "High.jump (m)",
+     main = "Relación entre Long.jump y High.jump")
+
+# Punto 7
+pv <- decathlon$Pole.vault
+hist(pv, breaks = seq(4.15, 5.45, by = 0.1), freq = FALSE,
+     col = "lightsteelblue", border = "white",
+     main = "Histograma - Pole.vault", xlab = "Altura (m)", ylab = "Densidad")
+lines(density(pv), lwd = 2, col = "darkblue")
+abline(v = mean(pv), col = "red", lwd = 2, lty = 2)
+
+par(mfrow = c(1, 1))
