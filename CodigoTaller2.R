@@ -43,6 +43,43 @@ plot(decathlon$100m, decathlon$400m,
 
 ## PUNTO 4: Calculo de los coeficientes de correlación
 
+# Instalar paquetes (solo la primera vez; luego se pueden dejar comentados)
+install.packages("FactoMineR")
+install.packages("corrplot")
+install.packages("writexl")
+
+# Cargar paquetes y datos
+library(FactoMineR)
+library(corrplot)
+library(writexl)
+data("decathlon")
+
+# 1. Seleccionar únicamente las 10 pruebas del decatlón
+competencias <- decathlon[, 1:10]
+
+# 2. Calcular la matriz de correlación de Pearson
+matriz_correlaciones <- cor(competencias)
+
+# 3. Redondear a 3 decimales y mostrar la matriz
+matriz_correlaciones_redondeada <- round(matriz_correlaciones, 3)
+print(matriz_correlaciones_redondeada)
+
+# 4. Guardar la matriz en un archivo Excel
+tabla_cor <- data.frame(Prueba = rownames(matriz_correlaciones_redondeada),
+                        matriz_correlaciones_redondeada,
+                        check.names = FALSE)
+write_xlsx(tabla_cor, "matriz_correlacion_decathlon.xlsx")
+
+# 5. Mapa de calor de las correlaciones
+corrplot(matriz_correlaciones,
+         method = "color",
+         type = "upper",
+         tl.col = "black",
+         tl.srt = 45,
+         addCoef.col = "black",
+         number.cex = 0.7,
+         title = "Matriz de Correlación - Eventos del Decatlón",
+         mar = c(0, 0, 2, 0))
 
 
 ## PUNTO 5: Diagrama de cajas para las pruebas Discus y Javeline
